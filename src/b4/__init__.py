@@ -144,7 +144,7 @@ DEFAULT_CONFIG = {
     'thanks-pr-template': None,
     # See thanks-am-template.example
     'thanks-am-template': None,
-    # If this is not set, we'll use what we find in 
+    # If this is not set, we'll use what we find in
     # git-config for gpg.program, and if that's not set,
     # we'll use "gpg" and hope for the better
     'gpgbin': None,
@@ -3470,6 +3470,9 @@ def git_range_to_patches(gitdir: Optional[str], start: str, end: str,
                 '--patch-with-stat',
                 '--encoding=utf-8',
                 '--notes',
+                '-B',
+                '-M',
+                '-C',
                 commit,
             ],
             decode=False,
