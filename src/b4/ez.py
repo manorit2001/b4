@@ -25,6 +25,7 @@ import io
 import tarfile
 import hashlib
 import urllib.parse
+import subprocess as sp
 
 from typing import Optional, Tuple, List, Union, Dict
 from email import utils
@@ -657,6 +658,7 @@ def store_cover(content: str, tracking: dict, new: bool = False) -> None:
             frf = fr.RepoFilter(args, commit_callback=fred.callback)
             logger.info('Invoking git-filter-repo to update the cover letter.')
             frf.run()
+            sp.run(str(pathlib.Path(__file__).parent.parent.parent.resolve() / "scripts" / "copy-notes.sh"), shell=True)
 
     if strategy == 'branch-description':
         mybranch = b4.git_get_current_branch(None)
@@ -1207,6 +1209,7 @@ def update_trailers(cmdargs: argparse.Namespace) -> None:
     logger.info('Invoking git-filter-repo to update trailers.')
     frf.run()
     logger.info('Trailers updated.')
+    sp.run(str(pathlib.Path(__file__).parent.parent.parent.resolve() / "scripts" / "copy-notes.sh"), shell=True)
 
 
 def get_addresses_from_cmd(cmdargs: List[str], msgbytes: bytes) -> List[Tuple[str, str]]:
